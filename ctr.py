@@ -14,6 +14,7 @@ import category_encoders as ce
 from scipy import stats
 import lightgbm as lgb
 import numpy as np
+from sklearn import preprocessing
 
 #  LightGBM vs  RandomForest for CTR
 ####################################################################################
@@ -145,8 +146,6 @@ def preprocessData(df, y=None, ce_target_encoder=None):
     for column_name in taxonomy_categories:
         df[column_name] = [1 if column_name in x else 0 for x in df['target_item_taxonomy']]
 
-
-
     # df = pd.concat([df, df['target_item_taxonomy'].str.get_dummies('~').add_prefix('C_')], axis=1)
     # TODO: We should  find how to use this data
     df.pop('target_item_taxonomy')
@@ -157,9 +156,10 @@ def preprocessData(df, y=None, ce_target_encoder=None):
     #df.pop('placement_id_hash')
     #df.pop('publisher_id_hash')
     #df.pop('source_id_hash')
-
-
     # return df, ce_target_encoder
+
+    #this is needed for random forests ! RandomForestClassifier - it kills the auc for the lgbm
+    df = df.apply(preprocessing.LabelEncoder().fit_transform)
     return df, None
 
 
@@ -248,43 +248,23 @@ def loadUncompressed(path):
     return data
 
 
-def testModel(model, ce_target_encoder):
-    testFilewName = "./testData/test_file.csv"
-    print("predictOnTest [" + testFilewName + "]")
-    dfTest = loadUncompressed(testFilewName)
-
-    IDs = dfTest.pop('Id')
-
-    dfTest, _ = preprocessData(dfTest, ce_target_encoder=ce_target_encoder)
-    Predicted = model.predict(dfTest)
-    PredictedArr = np.array(Predicted)
-
-    res = pd.DataFrame({'Id': IDs, 'Predicted': list(PredictedArr.flatten())}, columns=['Id', 'Predicted'])
-    res.Id = res.Id.astype(int)
-    runTime = time.time()
-    resFileName = "./models/model_" + str(runTime) + "_res.csv"
-    res.to_csv(resFileName, header=True, index=False)
-
-
 def run():
     # read the data and fit
     print("-------------------------------")
     trainX, testX, trainY, testY, ce_target_encoder = readTrainData()
 
-    best_auc = 0
-    best_model = None
-
-    #modelLRF = builedModelRF(trainX, trainY)
+    modelLRF = None
+    modelLGBM = None
+    modelLRF =builedModelRF(trainX, trainY)
     modelLGBM = builedModelLightGBM(trainX, trainY)
 
-    #aucRF = evaluateModel(testX, testY, modelLRF)
-    aucLGBM = evaluateModel(testX, testY, modelLGBM)
+    if modelLRF is not None:
+        aucRF = evaluateModel(testX, testY, modelLRF)
+        print('AUC RF[' + str(aucRF) + ']')
 
-    print('AUC LGBM[' + str(aucLGBM) + ']')
-    #print('AUC RF[' + str(aucRF) + ']')
-
-    if submit:
-        testModel(best_model, ce_target_encoder)
+    if modelLGBM is not None:
+        aucLGBM = evaluateModel(testX, testY, modelLGBM)
+        print('AUC LGBM[' + str(aucLGBM) + ']')
 
 run()
 print(" ---- Done ---- ")
