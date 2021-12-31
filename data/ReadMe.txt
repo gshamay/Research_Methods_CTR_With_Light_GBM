@@ -1,1 +1,0 @@
-download data from https://www.kaggle.com/c/bgu-rs/data/ (train1.zip, train2.zip... train7.zip) and place here as a zip @ bgu-rs.zip
