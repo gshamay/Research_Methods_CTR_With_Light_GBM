@@ -64,6 +64,40 @@ def readCSVFromZip(archive, file):
     return df
 
 
+def readTrainDataRF():
+    beginTime = time.time()
+    archive = zipfile.ZipFile('./data/bgu-rs.zip', 'r')
+    i=0
+    for file in archive.filelist:
+        if "part-" in file.filename and ".csv" in file.filename and i < maxFiles:
+            fileBeginTime = time.time()
+            if i==0:
+                df = readCSVFromZip(archive, file)
+            else:
+                new_df = readCSVFromZip(archive, file)
+                df = pd.concat([df, new_df])
+
+            print("file: " + str(i) + " handle time[" + str(time.time() - fileBeginTime)+ "]")
+            i = i+1
+
+    trainDf, testDf = train_test_split(df, train_size=0.99, random_state=seed)
+
+    trainDf = trainDf.dropna()  # todo: do we need this?
+    testDf = testDf.dropna()
+    trainY = trainDf.pop('is_click')
+    trainX = trainDf
+    trainX, ce_target_encoder = preprocessDataRF(trainX, trainY)
+    print(trainX.describe())
+
+    testY = testDf.pop('is_click')
+    testX = testDf
+    testX, ce_target_encoder = preprocessDataRF(testX, ce_target_encoder=ce_target_encoder)
+    print(testX.describe())
+    print("Number of rows in train: " + str(trainX.shape[0]))
+    print("Time taken: [" + str(time.time() - beginTime) + "]")
+    return trainX, testX, trainY, testY, ce_target_encoder
+
+    
 def readTrainData():
     beginTime = time.time()
     archive = zipfile.ZipFile('./data/bgu-rs.zip', 'r')
@@ -81,6 +115,7 @@ def readTrainData():
             i = i+1
 
     trainDf, testDf = train_test_split(df, train_size=0.99, random_state=seed)
+
     trainDf = trainDf.dropna()  # todo: do we need this?
     testDf = testDf.dropna()
     trainY = trainDf.pop('is_click')
@@ -102,6 +137,12 @@ def target_encode(X, y, categorical_columns):
     ce_target_encoder.fit(X, y)
     X = ce_target_encoder.transform(X)
     return X, ce_target_encoder
+
+
+def preprocessDataRF(df, y=None, ce_target_encoder=None):
+    df , test= preprocessData(df, y, ce_target_encoder)
+    df = df.apply(preprocessing.LabelEncoder().fit_transform)
+    return df, None
 
 
 def preprocessData(df, y=None, ce_target_encoder=None):
@@ -159,14 +200,14 @@ def preprocessData(df, y=None, ce_target_encoder=None):
     # return df, ce_target_encoder
 
     #this is needed for random forests ! RandomForestClassifier - it kills the auc for the lgbm
-    df = df.apply(preprocessing.LabelEncoder().fit_transform)
+    #df = df.apply(preprocessing.LabelEncoder().fit_transform)
     return df, None
 
 
 
 
 def builedModelRF(trainX, trainY):
-    RF =  RandomForestClassifier(verbose=2, n_estimators=100, max_depth=20, min_samples_split=5, n_jobs=4)
+    RF = RandomForestClassifier()
     RF.fit(trainX,trainY)
     return RF
 
@@ -231,6 +272,18 @@ def evaluateModel(X, y, model):
     print('test: AUC[' + str(AUC) + ']' + 'test: AUCNorm[' + str(AUCNorm) + ']' + str(stats.describe(testRes)))
     return AUC
 
+def evaluateModelRF(X, y, model):
+    testResProb = model.predict_proba(X)
+    testRes = list(map(lambda x : x[1], testResProb))
+    AUC = roc_auc_score(y, testRes)
+
+    normRes = np.vectorize(normalizeResults)(testRes)
+    AUCNorm = roc_auc_score(y, normRes)
+
+    # todo: Check that the res data is not <0 or >1 and fix if it does
+    print('test: AUC[' + str(AUC) + ']' + 'test: AUCNorm[' + str(AUCNorm) + ']' + str(stats.describe(testRes)))
+    return AUC
+
 
 def loadUncompressed(path):
     chunksNum = 0
@@ -252,14 +305,24 @@ def run():
     # read the data and fit
     print("-------------------------------")
     trainX, testX, trainY, testY, ce_target_encoder = readTrainData()
+    trainXRF, testXRF, trainYRF, testYRF, ce_target_encoder = readTrainDataRF() # todo: not good - data is read twice
+
+    # trainXRF = trainX.copy()
+    # testXRF = testX.copy()
+    # trainYRF = trainY.copy()
+    # # testYRF = testY.copy()
+    # le = preprocessing.LabelEncoder()
+    # trainXRF = trainXRF.apply(le.fit_transform)
+    # testXRF = testXRF.apply(le.fit_transform)
 
     modelLRF = None
     modelLGBM = None
-    modelLRF =builedModelRF(trainX, trainY)
+
+    modelLRF = builedModelRF(trainXRF, trainYRF)
     modelLGBM = builedModelLightGBM(trainX, trainY)
 
     if modelLRF is not None:
-        aucRF = evaluateModel(testX, testY, modelLRF)
+        aucRF = evaluateModelRF(testXRF, testYRF, modelLRF)
         print('AUC RF[' + str(aucRF) + ']')
 
     if modelLGBM is not None:
