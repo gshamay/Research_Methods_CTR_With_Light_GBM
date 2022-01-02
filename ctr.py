@@ -208,9 +208,13 @@ def normalizeResults(x):
 
 
 def evaluateModel(X, y, model):
-    testRes = model.predict(X)
-    AUC = roc_auc_score(y, testRes)
+    if type(model) == RandomForestClassifier:
+        testResProb = model.predict_proba(X)
+        testRes = list(map(lambda x : x[1], testResProb))
+    else:
+        testRes = model.predict(X)
 
+    AUC = roc_auc_score(y, testRes)
     normRes = np.vectorize(normalizeResults)(testRes)
     AUCNorm = roc_auc_score(y, normRes)
 
@@ -257,8 +261,10 @@ def run():
         aucLGBM, precisionLGBM, recallLGBM = evaluateModel(LGBMtestX, LGBMtestY, modelLGBM)
         dispLGBM = PrecisionRecallDisplay(precisionLGBM, recallLGBM)
         dispLGBM.plot()
-        plt.show()
         print('AUC LGBM[' + str(aucLGBM) + ']')
+
+    plt.legend(["Dataset 1", "Dataset 2"])
+    plt.show()
 
 
 run()
