@@ -11,6 +11,7 @@ from scipy import stats
 import lightgbm as lgb
 import numpy as np
 from sklearn import preprocessing
+from scipy.stats import wilcoxon
 
 # Adi Paz
 # Neriya Mazzuz
@@ -222,7 +223,7 @@ def evaluateModel(X, y, model):
 
     # todo: Check that the res data is not <0 or >1 and fix if it does
     print('test: AUC[' + str(AUC) + ']' + 'test: AUCNorm[' + str(AUCNorm) + ']' + str(stats.describe(testRes)))
-    return AUC, precision, recall
+    return AUC, precision, recall, testRes
 
 
 def loadUncompressed(path):
@@ -247,21 +248,26 @@ def run():
 
     modelLRF = None
     modelLGBM = None
+    testResLGBM  = None
+    testResRF = None
     modelLRF, RFtestX, RFtestY = buildModelRF()
     modelLGBM, LGBMtestX, LGBMtestY = buildModelLightGBM()
 
     if modelLRF is not None:
-        aucRF, precisionRF, recallRF = evaluateModel(RFtestX, RFtestY, modelLRF)
+        aucRF, precisionRF, recallRF, testResRF = evaluateModel(RFtestX, RFtestY, modelLRF)
         dispRF = PrecisionRecallDisplay(precisionRF, recallRF)
         dispRF.plot()
         #plt.show()
         print('AUC RF[' + str(aucRF) + ']')
 
     if modelLGBM is not None:
-        aucLGBM, precisionLGBM, recallLGBM = evaluateModel(LGBMtestX, LGBMtestY, modelLGBM)
+        aucLGBM, precisionLGBM, recallLGBM, testResLGBM = evaluateModel(LGBMtestX, LGBMtestY, modelLGBM)
         dispLGBM = PrecisionRecallDisplay(precisionLGBM, recallLGBM)
         dispLGBM.plot()
         print('AUC LGBM[' + str(aucLGBM) + ']')
+
+    stat, p = wilcoxon(testResLGBM, testResRF)
+    print('Statistics=%.3f, p=%.3f' % (stat, p))
 
     plt.legend(["Dataset 1", "Dataset 2"])
     plt.show()
