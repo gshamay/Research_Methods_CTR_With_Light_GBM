@@ -12,6 +12,7 @@ import lightgbm as lgb
 import numpy as np
 from sklearn import preprocessing
 from scipy.stats import wilcoxon
+import csv
 
 # Adi Paz
 # Neriya Mazzuz
@@ -260,18 +261,18 @@ def run():
         #plt.show()
         print('AUC RF[' + str(aucRF) + ']')
 
+
     if modelLGBM is not None:
         aucLGBM, precisionLGBM, recallLGBM, testResLGBM = evaluateModel(LGBMtestX, LGBMtestY, modelLGBM)
         dispLGBM = PrecisionRecallDisplay(precisionLGBM, recallLGBM)
         dispLGBM.plot()
         print('AUC LGBM[' + str(aucLGBM) + ']')
-
-    stat, p = wilcoxon(testResLGBM, testResRF)
-    print('Statistics=%.3f, p=%.3f' % (stat, p))
-
-    plt.legend(["Dataset 1", "Dataset 2"])
+        # with open('./LGBMtestY.csv', 'w') as f:
+        #     writer = csv.writer(f)
+        #     writer.writerows(LGBMtestY.iteritems())
+        stat, p = wilcoxon(x=testResLGBM, y=LGBMtestY)
+        print('testResLGBM Statistics=%.3f, p=%6f' % (stat, p))
     plt.show()
-
 
 run()
 print(" ---- Done ---- ")

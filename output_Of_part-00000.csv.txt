@@ -1,8 +1,9 @@
-C:\Users\gshamay.DALET\AppData\Local\Programs\Python\Python39\python.exe C:/bgu/Research_Methods_CTR_With_Light_GBM/ctr.py
+C:\Users\gshamay.DALET\AppData\Local\Programs\Python\Python39\python.exe "C:\Program Files\JetBrains\PyCharm Community Edition 2021.1.3\plugins\python-ce\helpers\pydev\pydevd.py" --multiproc --qt-support=auto --client 127.0.0.1 --port 63818 --file C:/bgu/Research_Methods_CTR_With_Light_GBM/ctr.py
+Connected to pydev debugger (build 212.5284.44)
 -------------------------------
-read Zip file took [2.5284364223480225]
-file: 0 handle time[7.416644096374512]
-transformDataToX_Y took[2.576528787612915]
+read Zip file took [2.2387397289276123]
+file: 0 handle time[6.9705939292907715]
+transformDataToX_Y took[2.61350679397583]
         user_id_hash  target_id_hash  syndicator_id_hash  campaign_id_hash  empiric_calibrated_recs  empiric_clicks  placement_id_hash      user_recs    user_clicks  user_target_recs  publisher_id_hash  source_id_hash  source_item_type  browser_platform      os_family   country_code         region    day_of_week    time_of_day      os_is_six          night        evening  user_click_rate  user_click_rate_pow           LIFE       BUSINESS  ENTERTAINMENT         HEALTH           TECH          AUTOS           FOOD         SPORTS          MUSIC           PETS           NEWS        FASHION       FOOTBALL
 count  458090.000000   458090.000000       458090.000000     458090.000000            458090.000000   458090.000000      458090.000000  458090.000000  458090.000000     458090.000000      458090.000000   458090.000000     458090.000000     458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000    458090.000000        458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000
 mean   222850.046170    14244.733031          954.176788       6442.378568            107526.925687    13076.399273         532.941778     369.865186      18.215034          0.734679           0.857877    17902.447510          1.853566          0.125041       5.523356     197.940324     504.445081       2.982189      32.221282       0.843655       0.090131       0.246681     27062.412347         27062.412347       0.275328       0.200487       0.135135       0.133277       0.110814       0.051171       0.046500       0.047967       0.030132       0.029066       0.023155       0.017438       0.017499
@@ -12,7 +13,7 @@ min         0.000000        0.000000            0.000000          0.000000      
 50%    222870.500000    14342.000000          965.000000       6502.000000            116000.500000     6926.000000         519.000000     318.000000       3.000000          0.000000           1.000000    17702.000000          1.000000          0.000000       6.000000     201.000000     524.000000       3.000000      30.000000       1.000000       0.000000       0.000000     21919.000000         21919.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000
 75%    334224.750000    21126.000000         1473.000000       9387.000000            158029.000000    23160.000000         837.000000     530.000000      20.000000          0.000000           2.000000    27340.000000          3.000000          0.000000       6.000000     201.000000     606.000000       5.000000      45.000000       1.000000       0.000000       0.000000     41856.000000         41856.000000       1.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000
 max    445625.000000    28159.000000         1952.000000      12763.000000            181724.000000    45299.000000        1080.000000    3033.000000     510.000000         94.000000           2.000000    34877.000000          4.000000          3.000000       6.000000     215.000000     858.000000       6.000000     122.000000       1.000000       1.000000       1.000000     60811.000000         60811.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000
-transformDataToX_Y took[0.027984619140625]
+transformDataToX_Y took[0.03597831726074219]
        user_id_hash  target_id_hash  syndicator_id_hash  campaign_id_hash  empiric_calibrated_recs  empiric_clicks  placement_id_hash    user_recs  user_clicks  user_target_recs  publisher_id_hash  source_id_hash  source_item_type  browser_platform    os_family  country_code       region  day_of_week  time_of_day    os_is_six        night      evening  user_click_rate  user_click_rate_pow         LIFE     BUSINESS  ENTERTAINMENT       HEALTH         TECH        AUTOS         FOOD       SPORTS        MUSIC         PETS         NEWS      FASHION     FOOTBALL
 count   4627.000000     4627.000000         4627.000000       4627.000000              4627.000000     4627.000000        4627.000000  4627.000000  4627.000000       4627.000000        4627.000000     4627.000000       4627.000000       4627.000000  4627.000000   4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000      4627.000000          4627.000000  4627.000000  4627.000000    4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000
 mean    2312.242490     1217.591960          317.710828        892.712124              2117.180463     1645.095742         184.008429   336.505295    16.922844          0.715582           0.842014      941.350119          1.881997          0.122109     4.532310     65.071537    78.928896     3.012967    16.574238     0.848066     0.083640     0.240329      1510.125567          1510.125567     0.272963     0.198617       0.135293     0.131187     0.110223     0.057489     0.044305     0.052086     0.027448     0.031986     0.025070     0.015777     0.017722
@@ -23,12 +24,12 @@ min        0.000000        0.000000            0.000000          0.000000       
 75%     3468.500000     1803.500000          481.000000       1318.000000              3221.500000     2639.500000         287.000000   525.000000    19.000000          0.000000           2.000000     1441.000000          3.000000          0.000000     5.000000     66.000000   101.000000     5.000000    21.000000     1.000000     0.000000     0.000000      2298.500000          2298.500000     1.000000     0.000000       0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000
 max     4625.000000     2429.000000          632.000000       1778.000000              4255.000000     3671.000000         374.000000  1150.000000   195.000000         30.000000           2.000000     1809.000000          4.000000          3.000000     5.000000     69.000000   132.000000     6.000000    44.000000     1.000000     1.000000     1.000000      2658.000000          2658.000000     1.000000     1.000000       1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000
 Number of rows in train: 458090
-Time taken: [16.991364240646362]
+Time taken: [19.569867849349976]
 [Parallel(n_jobs=4)]: Using backend ThreadingBackend with 4 concurrent workers.
 building tree 1 of 100
-building tree 2 of 100
-building tree 3 of 100building tree 4 of 100
+building tree 2 of 100building tree 3 of 100
 
+building tree 4 of 100
 building tree 5 of 100
 building tree 6 of 100
 building tree 7 of 100
@@ -61,8 +62,8 @@ building tree 33 of 100
 building tree 34 of 100
 building tree 35 of 100
 building tree 36 of 100
-[Parallel(n_jobs=4)]: Done  33 tasks      | elapsed:   15.6s
 building tree 37 of 100
+[Parallel(n_jobs=4)]: Done  33 tasks      | elapsed:   16.3s
 building tree 38 of 100
 building tree 39 of 100
 building tree 40 of 100
@@ -126,10 +127,10 @@ building tree 97 of 100
 building tree 98 of 100
 building tree 99 of 100
 building tree 100 of 100
-[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:   46.9s finished
-read Zip file took [2.345656633377075]
-file: 0 handle time[7.330785751342773]
-transformDataToX_Y took[2.673590660095215]
+[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:   47.4s finished
+read Zip file took [2.344646692276001]
+file: 0 handle time[7.219236850738525]
+transformDataToX_Y took[2.5847039222717285]
        empiric_calibrated_recs  empiric_clicks      user_recs    user_clicks  user_target_recs    time_of_day      os_is_six          night        evening  user_click_rate  user_click_rate_pow           LIFE       BUSINESS  ENTERTAINMENT         HEALTH           TECH          AUTOS           FOOD         SPORTS          MUSIC           PETS           NEWS        FASHION       FOOTBALL
 count             4.580900e+05   458090.000000  458090.000000  458090.000000     458090.000000  458090.000000  458090.000000  458090.000000  458090.000000    458090.000000         4.580900e+05  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000  458090.000000
 mean              2.841234e+04    24856.420123     370.225652      18.242765          0.735456       8.042808       0.843655       0.090131       0.246681         0.202666         1.413775e+00       0.275328       0.200487       0.135135       0.133277       0.110814       0.051171       0.046500       0.047967       0.030132       0.029066       0.023155       0.017438       0.017499
@@ -139,7 +140,7 @@ min               0.000000e+00        0.000000       0.000000       0.000000    
 50%               4.421158e+03     6932.000000     318.000000       3.000000          0.000000       8.000000       1.000000       0.000000       0.000000         0.041667         1.736111e-03       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000
 75%               2.102977e+04    26830.000000     530.000000      20.000000          0.000000      12.000000       1.000000       0.000000       0.000000         0.125813         1.582902e-02       1.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000
 max               1.096955e+06   769839.000000    5958.000000    1000.000000        100.000000     119.990000       1.000000       1.000000       1.000000       170.000000         2.890000e+04       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000       1.000000
-transformDataToX_Y took[0.030980587005615234]
+transformDataToX_Y took[0.03699326515197754]
        empiric_calibrated_recs  empiric_clicks    user_recs  user_clicks  user_target_recs  time_of_day    os_is_six        night      evening  user_click_rate  user_click_rate_pow         LIFE     BUSINESS  ENTERTAINMENT       HEALTH         TECH        AUTOS         FOOD       SPORTS        MUSIC         PETS         NEWS      FASHION     FOOTBALL
 count              4627.000000     4627.000000  4627.000000  4627.000000       4627.000000  4627.000000  4627.000000  4627.000000  4627.000000      4627.000000         4.627000e+03  4627.000000  4627.000000    4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000  4627.000000
 mean              28207.015960    24426.397882   374.393992    17.725524          0.777394     8.019851     0.848066     0.083640     0.240329         0.202718         2.847523e+00     0.272963     0.198617       0.135293     0.131187     0.110223     0.057489     0.044305     0.052086     0.027448     0.031986     0.025070     0.015777     0.017722
@@ -150,14 +151,14 @@ min                   0.000000        0.000000     0.000000     0.000000        
 75%               19906.315500    25225.500000   540.000000    19.000000          0.000000    12.000000     1.000000     0.000000     0.000000         0.116210         1.350486e-02     1.000000     0.000000       0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000     0.000000
 max              660735.100000   721078.000000  3487.000000   665.000000        100.000000    31.000000     1.000000     1.000000     1.000000       112.000000         1.254400e+04     1.000000     1.000000       1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000     1.000000
 Number of rows in train: 458090
-Time taken: [14.176005601882935]
+Time taken: [14.348252534866333]
 C:\Users\gshamay.DALET\AppData\Local\Programs\Python\Python39\lib\site-packages\lightgbm\basic.py:2065: UserWarning: Using categorical_feature in Dataset.
   _log_warning('Using categorical_feature in Dataset.')
 [LightGBM] [Info] Number of positive: 228678, number of negative: 229412
 [LightGBM] [Debug] Dataset::GetMultiBinFromSparseFeatures: sparse rate 0.900952
 [LightGBM] [Debug] Dataset::GetMultiBinFromAllFeatures: sparse rate 0.462015
-[LightGBM] [Debug] init for col-wise cost 0.015725 seconds, init for row-wise cost 0.055921 seconds
-[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.021625 seconds.
+[LightGBM] [Debug] init for col-wise cost 0.015447 seconds, init for row-wise cost 0.058720 seconds
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.020321 seconds.
 You can set `force_row_wise=true` to remove the overhead.
 And if memory is not enough, you can set `force_col_wise=true`.
 [LightGBM] [Debug] Using Sparse Multi-Val Bin
@@ -376,15 +377,15 @@ And if memory is not enough, you can set `force_col_wise=true`.
 [LightGBM] [Debug] Trained a tree with leaves = 31 and depth = 24
 [LightGBM] [Debug] Trained a tree with leaves = 31 and depth = 30
 [LightGBM] [Debug] Trained a tree with leaves = 31 and depth = 22
-Training model took[13.687726497650146]
+Training model took[12.658257961273193]
 [Parallel(n_jobs=4)]: Using backend ThreadingBackend with 4 concurrent workers.
 [Parallel(n_jobs=4)]: Done  33 tasks      | elapsed:    0.0s
-test: AUC[0.7203271901110563]test: AUCNorm[0.7167642893442744]DescribeResult(nobs=4627, minmax=(0.06403002716614417, 0.6167724899356352), mean=0.3767069429587677, variance=0.008196827434250759, skewness=-0.2509159790665796, kurtosis=-0.20569265002582116)
 [Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:    0.0s finished
-AUC RF[0.7203271901110563]
+test: AUC[0.7210495045065245]test: AUCNorm[0.7187215072567746]DescribeResult(nobs=4627, minmax=(0.10073772930386933, 0.6228920716089833), mean=0.38779284435237876, variance=0.008443457137841552, skewness=-0.2250271566409782, kurtosis=-0.3154582801267156)
+AUC RF[0.7210495045065245]
 test: AUC[0.8482345709459965]test: AUCNorm[0.7290029034572441]DescribeResult(nobs=4627, minmax=(0.007872096899613556, 0.9700327123465982), mean=0.493003330303145, variance=0.0956451389370015, skewness=-0.15186271131145715, kurtosis=-1.4545425776149161)
 AUC LGBM[0.8482345709459965]
-Statistics=2847259.000, p=0.0000000000
+testResLGBM Statistics=5055851.000, p=0.001057
  ---- Done ---- 
 
 Process finished with exit code 0
