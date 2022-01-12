@@ -262,7 +262,7 @@ def run():
         print('AUC RF[' + str(aucRF) + ']')
 
 
-    if modelLGBM is not None:
+    if (modelLGBM is not None):
         aucLGBM, precisionLGBM, recallLGBM, testResLGBM = evaluateModel(LGBMtestX, LGBMtestY, modelLGBM)
         dispLGBM = PrecisionRecallDisplay(precisionLGBM, recallLGBM)
         dispLGBM.plot()
@@ -270,10 +270,12 @@ def run():
         # with open('./LGBMtestY.csv', 'w') as f:
         #     writer = csv.writer(f)
         #     writer.writerows(LGBMtestY.iteritems())
-        stat, p = wilcoxon(x=testResLGBM, y=LGBMtestY)
-        print('testResLGBM Statistics=%.3f, p=%6f' % (stat, p))
-    plt.show()
 
+    if((testResRF is not None) and (testResLGBM is not None)):
+        stat, p = wilcoxon(x=testResLGBM, y=testResRF)
+        print('testResLGBM Statistics=%.3f, p=%6f' % (stat, p))
+
+    plt.show()
 run()
 print(" ---- Done ---- ")
 
