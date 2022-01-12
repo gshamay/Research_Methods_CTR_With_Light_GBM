@@ -159,7 +159,7 @@ def buildModelRF():
     return RF, testX, testY
 
 
-def buildModelLightGBM():
+def buildModelLightGBM(dataPercentage = 1.0):
     trainX, testX, trainY, testY = readTrainData(False)
     categorical_features = ['user_id_hash', 'target_id_hash', 'syndicator_id_hash', 'campaign_id_hash',
                             'placement_id_hash', 'publisher_id_hash', 'source_id_hash',
@@ -169,7 +169,18 @@ def buildModelLightGBM():
                            'PETS', 'NEWS', 'FASHION', 'FOOTBALL']
     categorical_features = categorical_features + taxonomy_categories
     categorical_features = [c for c, col in enumerate(trainX.columns) if col in categorical_features]
-    train_data = lgb.Dataset(trainX, label=trainY, categorical_feature=categorical_features)
+
+    trainXT = None
+    trainYT = None
+    if(dataPercentage < 1.0):
+        numOfElements = (int)(len(trainX)*dataPercentage)
+        trainXT  = trainX[numOfElements:]
+        trainYT  = trainY[numOfElements:]
+    else:
+        trainXT = trainX
+        trainYT = trainY
+
+    train_data = lgb.Dataset(trainXT, label=trainYT, categorical_feature=categorical_features)
 
     #
     # Train the model
@@ -252,6 +263,7 @@ def run():
     testResLGBM  = None
     testResRF = None
     modelLRF, RFtestX, RFtestY = buildModelRF()
+    modelLGBMSens, LGBMtestXSens, LGBMtestYSens = buildModelLightGBM(0.1)
     modelLGBM, LGBMtestX, LGBMtestY = buildModelLightGBM()
 
     if modelLRF is not None:
@@ -273,9 +285,19 @@ def run():
 
     if((testResRF is not None) and (testResLGBM is not None)):
         stat, p = wilcoxon(x=testResLGBM, y=testResRF)
-        print('testResLGBM Statistics=%.3f, p=%6f' % (stat, p))
+        print('testResLGBM Statistics=%.3f, p=%20f' % (stat, p))
+
+
+    #test sensativity
+    if (modelLGBMSens is not None):
+        aucLGBMSens, precisionLGBMSens, recallLGBMSens, testResLGBMSens = evaluateModel(LGBMtestXSens, LGBMtestYSens, modelLGBMSens)
+        dispLGBMSens = PrecisionRecallDisplay(precisionLGBMSens, recallLGBMSens)
+        dispLGBMSens.plot()
+        print('AUC LGBMSens[' + str(aucLGBMSens) + ']')
 
     plt.show()
+
+
 run()
 print(" ---- Done ---- ")
 
